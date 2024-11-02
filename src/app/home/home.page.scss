@@ -1,0 +1,101 @@
+.user-info-container {
+  background: whitesmoke; 
+  border-radius: 10px; 
+  padding: 15px; 
+  margin: 20px; 
+  text-align: center; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+.user-avatar {
+  width: 80px; 
+  height: auto; 
+  border-radius: 50%; 
+}
+
+.premios-container {
+  text-align: center; /* Centrar el texto del título */
+  margin-bottom: 20px; /* Espaciado inferior */
+}
+
+.premios-title {
+  font-size: 24px; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  color: #FFD700; /* Color dorado */
+  margin-bottom: 10px; /* Espaciado inferior */
+}
+
+.adoption-card {
+  background-color: #6A5ACD; /* Fondo púrpura */
+  color: white; /* Color de texto blanco */
+  border-radius: 10px; /* Bordes redondeados */
+  margin: 10px; /* Espaciado entre tarjetas */
+  transition: transform 0.2s; /* Efecto de hover */
+}
+
+.adoption-card:hover {
+  transform: scale(1.02); /* Efecto de zoom al pasar el mouse */
+}
+
+.premio-name {
+  color: #FFD700; /* Color dorado para el título del premio */
+  font-weight: bold; /* Negrita */
+  text-align: center; /* Centrar texto */
+}
+
+ion-card-content {
+  color: white; /* Asegurar que el texto del mensaje sea blanco */
+}
+
+/* Otros estilos existentes */
+.app-icon {
+  font-size: 32px; 
+}
+
+.offers-container {
+  display: flex; 
+  overflow-x: auto; 
+  padding: 10px 0; 
+}
+
+.offers-title-card {
+  background-color: white; 
+  margin-bottom: 15px; 
+}
+
+.offers-title {
+  color: red; 
+  text-align: center; 
+  margin: 0; 
+  font-weight: bold; 
+}
+
+.offer-card {
+  display: flex; 
+  align-items: center; 
+  padding: 15px; 
+}
+
+.offer-content {
+  display: flex; 
+  align-items: center; 
+  width: 100%; 
+}
+
+.offer-image {
+  width: 80px; 
+  height: auto; 
+  margin-right: 10px; 
+}
+
+.product-title {
+  font-size: 14px; 
+  font-weight: bold; 
+}
+
+.offer-details {
+  flex: 1; 
+  text-align: right; 
+}
+
+

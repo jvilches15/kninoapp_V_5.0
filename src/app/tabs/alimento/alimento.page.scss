@@ -1,0 +1,26 @@
+.title_tab {
+  text-align: center;
+  background-color: rgb(36, 36, 37);  
+  color: whitesmoke; 
+  padding: 16px; 
+}
+
+.transparent-list {
+  background-color: transparent; 
+}
+
+ion-item {
+  background-color: #001f3f; 
+  color: goldenrod; 
+  border-radius: 8px; 
+  margin: 8px 0; 
+  padding: 16px; 
+}
+
+.alimento-image {
+  border: 2px solid goldenrod; 
+  border-radius: 8px; 
+  width: 80px; 
+  height: 80px;
+  object-fit: cover; 
+}

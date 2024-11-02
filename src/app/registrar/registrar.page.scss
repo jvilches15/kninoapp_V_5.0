@@ -1,0 +1,106 @@
+.register-background {
+    background-color: rgb(185, 227, 16);
+  }
+
+
+  
+  .register-container {
+    padding: 20px;
+  }
+  .zoom-icon {
+    font-size: 36px; 
+    color: goldenrod; 
+    transition: transform 0.2s; 
+    display: block; 
+    margin: 0 auto; 
+  }
+  
+  .zoom-icon:hover {
+    transform: scale(1.2); 
+    cursor: pointer; 
+  }
+  
+  .register-card,
+  .pet-card {
+    margin: 10px 0;
+  }
+  
+  .card-title {
+    text-align: center;
+    color: darkblue;
+    font-weight: bold;
+  }
+  
+  .input-label {
+    color: darkblue;
+    font-weight: bold;
+  }
+  
+  .map-button {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+  }
+
+  .label-above {
+    margin-top: -10px;
+  }
+  .date-label {
+    color: darkblue; 
+    font-weight: bold; 
+  }
+  
+  .date-input {
+    color: darkblue; 
+    font-weight: bold; 
+  }
+
+  ion-select {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    --padding-start: 16px; 
+    --padding-end: 40px; 
+  }
+  
+  ion-select::part(icon) {
+    margin-left: auto; 
+  }
+  
+  
+  
+  .save-button {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+  }
+
+  .clean-button {
+    background-color: brown;
+    color: white;
+    font-weight: bold;
+  }
+
+  .image-container {
+    overflow: hidden; 
+    position: relative; 
+    height: 250px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+  }
+  
+  .k-nino-image {
+    width: 200px; 
+    height: auto; 
+    position: absolute; 
+    animation: moveSideToSide 2s ease-in-out infinite; 
+  }
+  
+  @keyframes moveSideToSide {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(10px); } 
+    100% { transform: translateX(0); }
+  }
+  
+  

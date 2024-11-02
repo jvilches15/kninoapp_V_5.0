@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <img src="assets/img/adoptame.png" alt="Imagen de Adopción" class="header-image pendulum" />
+  <div class="title_container">
+    <div class="title_tab">
+      <h2>Adopta</h2>
+      <h2>Un K-Nino te está esperando</h2>
+    </div>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let adopta of adoptame">
+      <ion-card class="adoption-card">
+        <img [src]="adopta.imagen" alt="{{ adopta.nombre }}" />
+        <ion-card-header>
+          <ion-card-title class="pet-name">{{ adopta.nombre }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>{{ adopta.mensaje }}</p>
+          <ion-button expand="full" color="danger" (click)="adoptar(adopta)">
+            <ion-icon slot="start" name="heart"></ion-icon>
+            Adoptar
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+

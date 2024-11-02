@@ -1,0 +1,98 @@
+ion-content {
+    --background: none; 
+    background-image: url('../../assets/img/fondo_login.jpg');  
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+ 
+  }
+
+  
+  ion-card{
+  
+    background-color: lavender;
+    box-shadow: none;
+    border-radius: 5%;
+    margin: 15% auto;
+  
+    width: 90%;
+  }
+  
+  .logo-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100px; 
+  }
+  
+  .logo {
+    width: 100%; 
+    height: auto; 
+    animation: zoom 2s infinite;
+  }
+  
+  .login-container img{
+  
+    width: 60%;
+  }
+  
+  ion-card ion-input{
+  
+    --background: transparent;
+    color:green;
+    font-weight: bold;
+  
+  }
+  
+  ion-card input{
+  
+    background-color: transparent;
+    color:green;
+    font-weight: bold;
+  }
+  
+  ion-card ion-label{
+  
+    --background: transparent;
+    color:green;
+    font-weight: bold;
+  }
+  
+  ion-card label{
+  
+    background-color: transparent;
+    color:green;
+    font-weight: bold;
+  }
+  
+  ion-card ion-item{
+  
+    --background: transparent;
+    color:green;
+    font-weight: bold;
+  
+  }
+  
+  ion-card ion-button.login-button{
+  
+    --background:blue;
+    color:cornsilk;
+    font-weight: bold;
+
+  
+  }
+  
+  .register-button{
+    color:brown;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  @keyframes zoom {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1); /* Aumenta el tamaño al 110% */
+    }
+  }

@@ -1,0 +1,32 @@
+
+  <ion-toolbar>
+    <app-knino-name [KninoName]="'K-Nino'"></app-knino-name>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="mainMenu"></ion-menu-button>
+    </ion-buttons>  
+  </ion-toolbar>
+
+
+<ion-content [fullscreen]="true"> 
+
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="alimento">
+        <ion-icon name="paw"></ion-icon>
+        <ion-label>Alimento</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="adiestramiento">
+        <ion-icon name="flash"></ion-icon>
+        <ion-label>Adiestramiento</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="adopta">
+        <ion-icon name="heart"></ion-icon>
+        <ion-label>Adopta</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+
+
+</ion-content>

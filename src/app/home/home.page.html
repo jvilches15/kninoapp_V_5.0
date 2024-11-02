@@ -1,0 +1,38 @@
+<ion-toolbar>  
+  <app-knino-name [KninoName]="'K-Nino'"></app-knino-name>
+  <ion-buttons slot="end"> 
+      <ion-menu-button menu="mainMenu"></ion-menu-button>
+  </ion-buttons>  
+</ion-toolbar> 
+
+<ion-content [fullscreen]="true" class="ion-padding"> 
+
+  <div class="user-info-container">
+    <div class="user-info">
+      <img src="../../assets/img/user.png" alt="User Avatar" class="user-avatar" />
+      <h2><strong>{{ bienvenidos }}</strong><br/> {{ email }}</h2>
+      <span>Tienes 500 lenguetazos</span>
+    </div>
+  </div>
+
+  <ion-list>
+    <div class="premios-container">
+      <h2 class="premios-title">Premios</h2>
+    </div>
+    <ion-item *ngFor="let premio of premios">
+      <ion-card class="adoption-card">
+        <img [src]="premio.imagen" alt="{{ premio.nombre }}" />
+        <ion-card-header>
+          <ion-card-title class="premio-name">{{ premio.nombre }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>{{ premio.mensaje }}</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+
+  
+

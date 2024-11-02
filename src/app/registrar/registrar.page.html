@@ -1,0 +1,98 @@
+<ion-content [fullscreen]="true" class="register-background">
+  <div class="register-container">
+    <ion-toolbar>  
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/home"></ion-back-button>
+      </ion-buttons>
+      <ion-buttons slot="end"> 
+          <ion-menu-button menu="mainMenu"></ion-menu-button>
+      </ion-buttons>  
+    </ion-toolbar> 
+
+    <ion-card class="register-card">
+      <ion-card-header>
+        <ion-card-title class="card-title">Registro de Usuario</ion-card-title>
+        <ion-icon name="person-add" class="zoom-icon"></ion-icon>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating" class="input-label">Nombre</ion-label>
+          <ion-input [(ngModel)]="user.firstName" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="input-label">Apellido</ion-label>
+          <ion-input [(ngModel)]="user.lastName" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="input-label">Usuario</ion-label>
+          <ion-input [(ngModel)]="user.username" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="input-label">Contraseña</ion-label>
+          <ion-input [(ngModel)]="user.password" type="password" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="input-label">Dirección</ion-label>
+          <ion-input [(ngModel)]="user.address" required></ion-input>
+        </ion-item>
+
+        <ion-button expand="full" (click)="openGoogleMaps()" class="map-button">Buscar en Google Maps</ion-button>
+
+        <ion-item>
+          <ion-label class="date-label">Fecha de Nacimiento</ion-label>
+          <ion-input type="date" class="date-input" [(ngModel)]="user.birthDate"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="pet-card">
+      <ion-card-header>
+        <ion-card-title class="card-title">Registra tu K-Nino</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="image-container">
+          <img src="assets/img/puppy.png" alt="K-Nino" class="k-nino-image" />
+        </div>
+
+        <ion-item>
+          <ion-label position="floating" class="input-label">Nombre del K-Nino</ion-label>
+          <ion-input [(ngModel)]="pet.name" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="input-label">Raza</ion-label>
+          <ion-select [(ngModel)]="pet.breed" required>
+            <ion-select-option value="kiltro">Kiltro</ion-select-option>
+            <ion-select-option value="fox-terrier">Fox Terrier</ion-select-option>
+            <ion-select-option value="labrador">Labrador</ion-select-option>
+            <ion-select-option value="sharpei">Sharpei</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" class="input-label">Edad</ion-label>
+          <ion-select [(ngModel)]="pet.age" required>
+            <ion-select-option value="0-6">0 a 6 meses</ion-select-option>
+            <ion-select-option value="1-4">1 a 4 años</ion-select-option>
+            <ion-select-option value="4+">4 años o más</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button expand="full" (click)="registrar()" fill="clear" class="save-button">
+      <ion-icon slot="start" name="add-circle"></ion-icon>
+      Guardar
+    </ion-button>
+    
+    <ion-button expand="full" (click)="limpiar()" fill="clear" class="clean-button">
+      <ion-icon slot="start" name="remove-circle"></ion-icon>
+      Limpiar
+    </ion-button>
+  </div>
+</ion-content>
+

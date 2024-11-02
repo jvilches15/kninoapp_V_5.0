@@ -1,0 +1,57 @@
+.title_container {
+  position: relative;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7); /* Fondo transparente */
+  padding: 20px;
+}
+
+.title_tab h2 {
+  color: red; /* Letras rojas */
+  font-weight: bold; /* Negrita */
+  margin: 0; /* Eliminar márgenes */
+}
+
+.header-image {
+  width: 100%;
+  height: auto;
+  animation: pendulum 2s ease-in-out infinite; /* Animación de péndulo */
+}
+
+@keyframes pendulum {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px); /* Mueve la imagen a la derecha */
+  }
+}
+
+.adoption-card {
+  background-color: purple; /* Fondo púrpura */
+  color: whitesmoke; /* Letras en whitesmoke */
+  margin: 8px; /* Espaciado entre cartas */
+  border-radius: 8px; /* Bordes redondeados */
+  text-align: center; /* Centrar texto */
+}
+
+.adoption-card img {
+  width: 100%; /* Ajustar imagen al tamaño del card */
+  border-radius: 8px 8px 0 0; /* Bordes redondeados en la parte superior */
+}
+
+.pet-name {
+  color: goldenrod; /* Nombre en color goldenrod */
+  font-weight: bold; /* Negrita para el nombre */
+}
+
+.pet-message {
+  text-align: center; /* Centrar el mensaje */
+  margin: 0; /* Eliminar márgenes */
+}
+
+ion-card-title {
+  font-weight: bold; /* Negrita para el título del card */
+}
+
+
+  

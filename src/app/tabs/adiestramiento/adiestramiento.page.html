@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="title_container">
+    <div class="title_tab">
+      <h2>Adiestra</h2>
+      <h2>Siempre es bueno aprender para el buen comportamiento de nuestros K-Ninos</h2>
+      <h2>Sigue estos consejos útiles</h2>
+    </div>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let adiestra of adiestras">
+      <ion-card>
+        <img [src]="adiestra.imagen" alt="{{ adiestra.nombre }}" />
+        <ion-card-header>
+          <ion-card-title>{{ adiestra.nombre }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>{{ adiestra.consejo }}</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+</ion-content>

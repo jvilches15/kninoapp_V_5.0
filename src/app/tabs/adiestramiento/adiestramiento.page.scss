@@ -1,0 +1,44 @@
+ion-content {
+    position: relative; 
+    background-size: cover;
+    background-position: center; 
+    padding: 16px; 
+  }
+  
+  .title_container {
+    text-align: center; 
+    color: #0c023a; 
+    font-weight: bold; 
+    margin: 16px 0; 
+    position: relative; 
+    z-index: 1; 
+    background-color: rgba(255, 255, 255, 0.8); 
+    padding: 16px; 
+    border-radius: 8px; 
+  }
+  
+  h2 {
+    margin: 8px 0; 
+  }
+  
+  ion-list {
+    margin: 0; 
+  }
+  
+  ion-card {
+    background: linear-gradient(to bottom, #e6d6c1, #c2b29a); 
+    color: white; 
+    margin: 8px; 
+    border-radius: 8px; 
+    position: relative; 
+    z-index: 1; 
+  }
+  
+  ion-card-header, ion-card-content {
+    text-align: center; 
+  }
+  
+  ion-card-title {
+    font-weight: bold; 
+  }
+  
