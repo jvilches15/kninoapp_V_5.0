@@ -10,19 +10,19 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./registrar.page.scss'],
 })
 export class RegistrarPage {
-  user = {
-    firstName: '',
-    lastName: '',
+  usuario = {
+    nombre: '',
+    apellido: '',
     username: '',
     password: '',
-    address: '',
-    birthDate:'',
+    direccion: '',
+    fechaNac:'',
   };
 
-  pet = {
-    name: '',
-    breed: '',
-    age: ''
+  mascota = {
+    nombre: '',
+    raza: '',
+    edad: ''
   };
 
   constructor(private navCtrl: NavController, private alertController: AlertController, private menu: MenuController) {}
@@ -33,7 +33,7 @@ export class RegistrarPage {
 
   async presentAlert(message: string) {
     const alert = await this.alertController.create({
-      header: 'Mensaje',
+      header: '¡¡Usuario K-Nino Registrado!!',
       message: message,
       buttons: ['OK']
     });
@@ -41,17 +41,17 @@ export class RegistrarPage {
     await alert.present();
   }
   openGoogleMaps() {
-    const address = encodeURIComponent(this.user.address);
-    const url = `https://www.google.com/maps/search/?api=1&query=${address}`;
+    const direccion = encodeURIComponent(this.usuario.direccion);
+    const url = `https://www.google.com/maps/search/?api=1&query=${direccion}`;
     window.open(url, '_blank');
   }
 
   registrar() {
    
-    if (this.user.firstName.trim() === '' || this.user.lastName.trim() === '' || this.user.username.trim() === '' || this.user.password.trim() === '' || this.user.address.trim() === '' || this.user.birthDate.trim() === '') {
+    if (this.usuario.nombre.trim() === '' || this.usuario.apellido.trim() === '' || this.usuario.username.trim() === '' || this.usuario.password.trim() === '' || this.usuario.direccion.trim() === '' || this.usuario.fechaNac.trim() === '') {
       this.presentAlert('Error: Datos vacios, debe completar todos los campos.');
     
-      if(this.user.password.length > 4 || this.user.password.length < 4){
+      if(this.usuario.password.length > 4 || this.usuario.password.length < 4){
 
         this.presentAlert('La Password debe ser de 4 caracteres y no puede tener mas de 4 caracteres.');
         return;
@@ -59,28 +59,28 @@ export class RegistrarPage {
       }
       const passwordRegex = /^[0-9]+$/;
     
-      if(!passwordRegex.test(this.user.password)){
+      if(!passwordRegex.test(this.usuario.password)){
     
         this.presentAlert('La Password debe contener solo números.');
         return;
     
       }
     } else {
-      this.presentAlert('Datos Correctos  nombre:  '+this.user.firstName+' apellido: '+this.user.lastName+' fecha de nacimiento: '+this.user.birthDate); 
+      this.presentAlert('Nombre:  '+this.usuario.nombre+' Apellido: '+this.usuario.apellido+' Fecha de Nacimiento: '+this.usuario.fechaNac); 
     }
   }
 
   limpiar(){
     
-    this.user.firstName = '';
-    this.user.lastName = '';
-    this.user.username = '';
-    this.user.password = '';
-    this.user.address = '';
-    this.user.birthDate = '';
-    this.pet.name = '';
-    this.pet.age = '';
-    this.pet.breed = '';
+    this.usuario.nombre = '';
+    this.usuario.apellido = '';
+    this.usuario.username = '';
+    this.usuario.password = '';
+    this.usuario.direccion = '';
+    this.usuario.fechaNac = '';
+    this.mascota.nombre = '';
+    this.mascota.edad = '';
+    this.mascota.raza = '';
     
     const userDiv = document.getElementById('user');
     if (userDiv) {

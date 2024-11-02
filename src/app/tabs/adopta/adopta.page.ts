@@ -60,7 +60,7 @@ export class AdoptaPage implements OnInit {
 
   ngOnInit() {}
 
-  async adoptar(adopta: Adopcion) { // Especificamos el tipo de 'adopta'
+  async adoptar(adopta: Adopcion) { 
     const alert = await this.alertController.create({
       header: '¡Éxito!',
       message: `Perrito/a ${adopta.nombre} adoptado.`,

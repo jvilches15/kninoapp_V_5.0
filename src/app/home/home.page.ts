@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'; 
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,12 @@ export class HomePage {
   password: string = '';
   bienvenidos: string='Bienvenid@';
 
-  constructor(private route: ActivatedRoute, ) {}
+  toastOpen: boolean = false;
+  constructor(private route: ActivatedRoute, private alertController: AlertController) {}
+
+  canjearLenguetazos() {
+    this.toastOpen = true;
+  }
   premios = [
     {
       nombre: 'Burguer',
@@ -56,8 +62,12 @@ export class HomePage {
   ];
 
 
+  
+  
+
   ngOnInit() { 
-    
+
+
     this.route.queryParams.subscribe(params => {
       this.email = params['email'];
       this.password = params['password'];

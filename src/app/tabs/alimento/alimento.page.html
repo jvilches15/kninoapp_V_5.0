@@ -1,27 +1,37 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-     
+    
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-   
   <div class="title_tab">
     <h2>Alimentos</h2>
   </div>
 
   <ion-list class="transparent-list">
-    <ion-item *ngFor="let alimento of alimentos"  >
+    <ion-item *ngFor="let alimento of alimentos">
       <ion-label>
         <h2>{{ alimento.nombre }}</h2>
-        <p>Precio: {{ alimento.precio}}</p>
-        <p>Acumulas: {{ alimento.lenguetazo}}</p>
+        <p>Precio: {{ alimento.precio }}</p>
+        <p>Acumulas: {{ alimento.lenguetazo }}</p>
       </ion-label>
       <div class="content_img">
-        <img [src]="alimento.imagen" alt="{{ alimento.nombre }}" class="alimento-image" />
+        <img [src]="alimento.imagen" alt="{{ alimento.nombre }}" class="alimento-image animated-image" />
+        <ion-button class="agregar-button" fill= "clear" (click)="agregarAlCarrito()">
+          <ion-icon name="cart" slot="start"></ion-icon>
+          Agregar al carrito
+        </ion-button>
       </div>
-      
     </ion-item>
   </ion-list>
-  
+
+  <ion-toast
+    [isOpen]="toastOpen"
+    message="Agregado al Carrito"
+    duration="2000"
+    (didDismiss)="toastOpen = false"
+    position="top">
+  </ion-toast>
 </ion-content>
+

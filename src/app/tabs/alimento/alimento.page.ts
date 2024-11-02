@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular'; 
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-alimento',
@@ -7,6 +7,7 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./alimento.page.scss'],
 })
 export class AlimentoPage implements OnInit {
+  toastOpen = false;
 
   constructor(private menu: MenuController) { }
 
@@ -53,11 +54,15 @@ export class AlimentoPage implements OnInit {
       lenguetazo: 'Acumulas 50 lenguetazos',
       imagen: '/assets/img/alimentos/fit.jpg'
     }
-   
   ];
 
   ngOnInit() {
     this.menu.close('mainMenu');
   }
 
+  agregarAlCarrito() {
+    
+    this.toastOpen = true; 
+  }
 }
+
