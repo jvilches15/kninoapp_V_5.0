@@ -1,5 +1,7 @@
 {
   "name": "KninoAPP",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

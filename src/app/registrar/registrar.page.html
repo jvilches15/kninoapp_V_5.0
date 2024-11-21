@@ -1,13 +1,13 @@
 <ion-content [fullscreen]="true" class="register-background">
   <div class="register-container">
-    <ion-toolbar>  
+    <ion-toolbar>
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/home"></ion-back-button>
       </ion-buttons>
-      <ion-buttons slot="end"> 
-          <ion-menu-button menu="mainMenu"></ion-menu-button>
-      </ion-buttons>  
-    </ion-toolbar> 
+      <ion-buttons slot="end">
+        <ion-menu-button menu="mainMenu"></ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
 
     <ion-card class="register-card">
       <ion-card-header>
@@ -26,8 +26,8 @@
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating" class="input-label">Usuario</ion-label>
-          <ion-input [(ngModel)]="usuario.username" required></ion-input>
+          <ion-label position="floating" class="input-label">Email</ion-label>
+          <ion-input [(ngModel)]="usuario.email" required></ion-input>
         </ion-item>
 
         <ion-item>
@@ -55,7 +55,8 @@
       </ion-card-header>
       <ion-card-content>
         <div class="image-container">
-          <img src="assets/img/puppy.png" alt="K-Nino" class="k-nino-image" />
+          <img *ngIf="mascota.foto" [src]="mascota.foto" alt="Foto K-Nino" class="k-nino-image" />
+          <img *ngIf="!mascota.foto" src="assets/img/puppy.png" alt="K-Nino" class="k-nino-image" />
         </div>
 
         <ion-item>
@@ -81,6 +82,13 @@
             <ion-select-option value="4+">4 años o más</ion-select-option>
           </ion-select>
         </ion-item>
+
+        <!-- Botón para tomar la foto -->
+        <ion-button expand="full" (click)="tomarFoto()" class="camera-button">
+          <ion-icon slot="start" name="camera"></ion-icon>
+          Tomar Foto Knino
+        </ion-button>
+
       </ion-card-content>
     </ion-card>
 
@@ -88,11 +96,13 @@
       <ion-icon slot="start" name="add-circle"></ion-icon>
       Guardar
     </ion-button>
-    
+
     <ion-button expand="full" (click)="limpiar()" fill="clear" class="clean-button">
       <ion-icon slot="start" name="remove-circle"></ion-icon>
       Limpiar
     </ion-button>
   </div>
 </ion-content>
+
+
 

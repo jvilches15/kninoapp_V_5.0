@@ -24,6 +24,7 @@ export class AdiestramientoPage implements OnInit {
       consejo: 'Ponte frente a tu perro.Repite el ejercicio de «quieto».Acercate a el y extiende tu mano, con tu mano señala su pata.Si te da la pata, prémiale.',
       imagen: '/assets/img/adiestra/pata.gif',
     }, 
+  
     {
       nombre: 'Consejo N°4: Tumba',
       consejo: 'Ponte frente a tu perro.Desde la posición de «sentado» dile «TUMBA» mientras mueves tu mano con un premio desde su hocico hacia el suelo.Si no se ha tumbado, prémiale.',
