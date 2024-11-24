@@ -11,7 +11,7 @@ export class KninodbService {
     this.initializedDatabase();
   }
 
-  // Método para inicializar la base de datos
+  
   async initializedDatabase() {
     try {
       if (!this.dbInstance) {
@@ -19,17 +19,16 @@ export class KninodbService {
           name: 'kninodatabase.db',
           location: 'default',
         });
-        await this.CreateTables(); // Crear tablas si no existen
+        await this.CreateTables();
       }
     } catch (error) {
       console.error('Error al inicializar la base de datos:', error);
     }
   }
 
-  // Creación de tablas
+  
   async CreateTables() {
     try {
-      // Crear tabla usuario
       await this.dbInstance.executeSql(
         `CREATE TABLE IF NOT EXISTS usuario(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -42,7 +41,6 @@ export class KninodbService {
         )`, []
       );
 
-      // Crear tabla mascota
       await this.dbInstance.executeSql(
         `CREATE TABLE IF NOT EXISTS mascota(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -61,10 +59,10 @@ export class KninodbService {
     }
   }
 
-  // Obtener el ID de usuario por email
+  
   getUsuarioId(email: string): Promise<number> {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT id FROM usuario WHERE email = ? LIMIT 1';  // Corregido 'usuario' en lugar de 'usuarios'
+      const query = 'SELECT id FROM usuario WHERE email = ? LIMIT 1';
       this.dbInstance.executeSql(query, [email])
         .then((res) => {
           if (res.rows.length > 0) {
@@ -77,7 +75,7 @@ export class KninodbService {
     });
   }
 
-  // Insertar usuario
+  
   async insertUsuario(usuario: any): Promise<void> {
     const query = 'INSERT INTO usuario (nombre, apellido, email, password, direccion, fechaNac) VALUES (?, ?, ?, ?, ?, ?)';
     try {
@@ -96,9 +94,9 @@ export class KninodbService {
     }
   }
 
-  // Insertar una mascota
+  
   async insertMascota(mascota: any, usuarioId: number) {
-    const query = 'INSERT INTO mascota (nombre, raza, edad, foto, usuarioId) VALUES (?, ?, ?, ?,?)';
+    const query = 'INSERT INTO mascota (nombre, raza, edad, foto, usuarioId) VALUES (?, ?, ?, ?, ?)';
     try {
       await this.dbInstance.executeSql(query, [
         mascota.nombre,
@@ -110,6 +108,22 @@ export class KninodbService {
       console.log('Mascota insertada con éxito');
     } catch (error) {
       console.error('Error al insertar la mascota:', error);
+    }
+  }
+
+  
+  async getMascotaFoto(usuarioId: number): Promise<string> {
+    const query = 'SELECT foto FROM mascota WHERE usuarioId = ? LIMIT 1';
+    try {
+      const res = await this.dbInstance.executeSql(query, [usuarioId]);
+      if (res.rows.length > 0) {
+        return res.rows.item(0).foto; 
+      } else {
+        return ''; 
+      }
+    } catch (error) {
+      console.error('Error al recuperar la foto de la mascota:', error);
+      return ''; 
     }
   }
 }

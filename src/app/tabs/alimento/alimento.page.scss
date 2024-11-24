@@ -24,12 +24,12 @@ ion-item {
   height: 80px;
   object-fit: cover; 
   transition: transform 0.3s ease;
-
 }
 
 .alimento-image:hover {
   transform: scale(1.1); 
 }
+
 .agregar-button {
   background-color: white; 
   color: black; 
@@ -52,4 +52,17 @@ ion-toast {
   --border-radius: 10px; 
   text-align: center; 
   font-weight: bold; 
+}
+
+.category-image {
+  border: 2px solid goldenrod;
+  border-radius: 8px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.category-image:hover {
+  transform: scale(1.1);
 }

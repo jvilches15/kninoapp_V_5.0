@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { ComidaService } from 'src/app/service/comida.service';
 
 @Component({
   selector: 'app-alimento',
@@ -8,8 +9,10 @@ import { MenuController } from '@ionic/angular';
 })
 export class AlimentoPage implements OnInit {
   toastOpen = false;
+  buscadoAlimento: string = '';  
+  categorias: any[] = [];  
 
-  constructor(private menu: MenuController) { }
+  constructor(private menu: MenuController, private comidaService: ComidaService) { }
 
   alimentos = [
     {
@@ -58,11 +61,28 @@ export class AlimentoPage implements OnInit {
 
   ngOnInit() {
     this.menu.close('mainMenu');
+    
+    
+    this.comidaService.getCategorias().subscribe((data: any) => {
+      this.categorias = data.categories;
+    });
   }
 
+  
+  buscarAlimento() {
+    if (this.buscadoAlimento.trim() !== '') {
+      this.comidaService.buscarAlimento(this.buscadoAlimento).subscribe((data: any) => {
+        console.log('Resultados de búsqueda:', data);
+        
+      });
+    }
+  }
+
+  
   agregarAlCarrito() {
-    
     this.toastOpen = true; 
   }
-}
+  }
+
+
 

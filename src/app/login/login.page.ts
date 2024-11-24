@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
-import { KninodbService } from '../service/kninodb.service'; // Asegúrate de importar el servicio
+import { KninodbService } from '../service/kninodb.service'; 
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
   constructor(
     private navCtrl: NavController, 
     private alertController: AlertController,
-    private kninodbService: KninodbService // Inyectar el servicio
+    private kninodbService: KninodbService 
   ) { }
 
   ngOnInit() { }
@@ -35,7 +35,7 @@ export class LoginPage implements OnInit {
     return emailRegex.test(email);
   }
 
-  // Función para iniciar sesión
+  
   async login() {
     if (!this.email) {
       this.Alerta('Debe ingresar un correo electrónico.');
@@ -63,14 +63,13 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    // Verificar si el email existe en la base de datos
+    
     try {
-      const usuarioId = await this.kninodbService.getUsuarioId(this.email); // Usamos email para buscar al usuario
-      // Si el usuario existe, procedemos al login
-      localStorage.setItem('usuarioId', usuarioId.toString()); // Guardamos el usuarioId en localStorage
+      const usuarioId = await this.kninodbService.getUsuarioId(this.email); 
+      
+      localStorage.setItem('usuarioId', usuarioId.toString()); 
       localStorage.setItem('isRegistered', 'true');
-      // Ahora verificamos la contraseña (puedes agregar más lógica para verificar la contraseña si es necesario)
-      // Si es correcto, navegamos a la página home
+      
       this.navCtrl.navigateForward(['/home'], {
         queryParams: {
           email: this.email,
@@ -79,13 +78,13 @@ export class LoginPage implements OnInit {
       });
 
     } catch (error) {
-      // Si el email no está registrado, mostramos el mensaje de error
+      
       this.Alerta('Error: Usuario no registrado. Por favor regístrate primero.');
       console.error(error);
     }
   }
 
-  // Navegar a la página de registro
+  
   registrar() {
     this.navCtrl.navigateForward(['/registrar']);
   }

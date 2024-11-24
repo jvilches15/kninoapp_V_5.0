@@ -5,50 +5,43 @@
   </ion-buttons>  
 </ion-toolbar> 
 
-<ion-content [fullscreen]="true" class="ion-padding"> 
-
+<ion-content [fullscreen]="true" class="ion-padding">
   <div class="user-info-container">
     <div class="user-info">
-      <img src="../../assets/img/user.png" alt="User Avatar" class="user-avatar" />
+      
+      <ion-img [src]="userFoto || '../../assets/img/user.png'" alt="User Avatar" class="user-avatar"></ion-img>
+      
       <h2><strong>{{ bienvenidos }}</strong><br/> {{ email }}</h2>
       <span>Tienes 500 lenguetazos</span>
     </div>
   </div>
 
+  
+  <ion-button expand="full" (click)="tomarFoto()" class="tomarfoto-button" fill="clear">
+    <ion-icon slot="start" name="camera"></ion-icon>
+    Tomar Foto de Perfil
+  </ion-button>
+
   <ion-list>
-    <div class="premios-container">
-      <h2 class="premios-title">Premios</h2>
-    </div>
-    <ion-item *ngFor="let premio of premios" class="premio-item">
-      <ion-card class="adoption-card">
-        <img [src]="premio.imagen" alt="{{ premio.nombre }}" class="premio-image animated-image" />
-        <ion-card-header>
-          <ion-card-title class="premio-name">{{ premio.nombre }}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <p>{{ premio.mensaje }}</p>
-          <ion-button class="canjear-button" fill= "clear" (click)="canjearLenguetazos()">
-            <img src="../../assets/icon/lengua.png" alt="Icono" class="icono-boton" /> Canjear
-          </ion-button>
-        </ion-card-content>
-      </ion-card>
+    <ion-item *ngFor="let premio of premios">
+      <ion-thumbnail slot="start">
+        
+        <img [src]="premio.imagen" class="premio-image" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ premio.nombre }}</h2>
+        <p>{{ premio.mensaje }}</p>
+      </ion-label>
+      
+      <ion-button (click)="canjearLenguetazos(premio.nombre)" class="canjear-button" fill="clear">
+        <img src="../../assets/icon/lengua.png" alt="Icono Lengua" class="icono-boton" /> Canjear
+      </ion-button>
     </ion-item>
   </ion-list>
-
-  <ion-toast
-    [isOpen]="toastOpen"
-    message="Lenguetazos canjeados"
-    duration="2000"
-    (didDismiss)="toastOpen = false"
-    position="top">
-  </ion-toast>
-
 </ion-content>
 
 
 
 
 
-
-  
 

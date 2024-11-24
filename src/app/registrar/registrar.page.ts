@@ -1,20 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { AlertController } from '@ionic/angular'; 
-import { MenuController } from '@ionic/angular'; 
-import { KninodbService } from '../service/kninodb.service'; // Asegúrate de importar el servicio
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { AlertController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
+import { KninodbService } from '../service/kninodb.service';
+
+import { Geolocation } from '@capacitor/geolocation';
+declare var google: any;
 
 @Component({
   selector: 'app-registrar',
   templateUrl: './registrar.page.html',
   styleUrls: ['./registrar.page.scss'],
 })
-export class RegistrarPage {
+export class RegistrarPage implements AfterViewInit {
   usuario = {
     nombre: '',
     apellido: '',
-    email:  '',
+    email: '',
     password: '',
     direccion: '',
     fechaNac: '',
@@ -27,94 +29,144 @@ export class RegistrarPage {
     foto: '' as string | undefined
   };
 
+  direccionInput: string = ''; 
+  ubicacion: string = '';
+  suggestions: any[] = []; 
+  map: any; 
+
   constructor(
     private navCtrl: NavController, 
     private alertController: AlertController, 
     private menu: MenuController,
-    private kninodbService: KninodbService // Inyectar el servicio
+    private kninodbService: KninodbService
   ) {}
 
-  ngOnInit() {
-    this.menu.close("mainMenu");
+  ngAfterViewInit() {
+    this.initMap();
+    this.initAutocomplete(); 
   }
 
-  async presentAlert(message: string) {
-    const alert = await this.alertController.create({
-      header: '¡¡Usuario K-Nino Registrado!!',
-      message: message,
-      buttons: ['OK']
+  initMap() {
+    const mapOptions = {
+      center: { lat: 0, lng: 0 }, 
+      zoom: 2, 
+    };
+    this.map = new google.maps.Map(document.getElementById('map') as HTMLElement, mapOptions);
+  }
+
+  initAutocomplete() {
+    const input = document.getElementById('address-input') as HTMLInputElement;
+    const options = {
+      types: ['address'],
+      componentRestrictions: { country: 'CL' }, 
+    };
+
+    const autocomplete = new google.maps.places.Autocomplete(input, options);
+
+    autocomplete.addListener('place_changed', () => {
+      const place = autocomplete.getPlace();
+      if (place && place.formatted_address) {
+        this.direccionInput = place.formatted_address;
+        this.usuario.direccion = place.formatted_address;
+      }
     });
-
-    await alert.present();
   }
 
-  openGoogleMaps() {
-    const direccion = encodeURIComponent(this.usuario.direccion);
-    const url = `https://www.google.com/maps/search/?api=1&query=${direccion}`;
-    window.open(url, '_blank');
-  }
-
-  async tomarFoto() {
-    try {
-      const image = await Camera.getPhoto({
-        quality: 100,
-        resultType: CameraResultType.Base64,
-        source: CameraSource.Camera,
-      });
   
-      // Aseguramos que la foto siempre sea una cadena, nunca undefined
-      this.mascota.foto = image.base64String || ''; // Si base64String es undefined, asignamos una cadena vacía
-      console.log('Foto tomada:', this.mascota.foto);
-    } catch (error) {
-      console.error('Error al tomar la foto:', error);
-      this.mascota.foto = '';  // En caso de error, podemos asegurar que la foto se establece como una cadena vacía
+  onInputChange(event: any) {
+    const input = event.target.value;
+
+    if (input.length > 0) {
+      this.getSuggestions(input);
+    } else {
+      this.suggestions = []; 
     }
   }
 
-  // Registrar usuario y mascota en la base de datos
+  
+  getSuggestions(query: string) {
+    const service = new google.maps.places.AutocompleteService();
+    service.getPlacePredictions({ input: query }, (predictions: google.maps.places.AutocompletePrediction[], status: google.maps.places.PlacesServiceStatus) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        this.suggestions = predictions;
+      } else {
+        this.suggestions = [];
+      }
+    });
+  }
+
+  
+  selectAddress(suggestion: any) {
+    this.direccionInput = suggestion.description;
+    this.usuario.direccion = suggestion.description;
+    this.suggestions = []; 
+  }
+
+ 
+  async obtenerUbicacion() {
+    try {
+      const position = await Geolocation.getCurrentPosition();
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      this.ubicacion = `Lat: ${lat}, Lon: ${lon}`;
+      this.mostrarMapa(lat, lon);
+    } catch (error) {
+      alert('Error al obtener la ubicación');
+      console.error(error);
+    }
+  }
+
+  
+  mostrarMapa(lat: number, lon: number) {
+    const position = { lat, lng: lon };
+
+    this.map.setCenter(position);
+    this.map.setZoom(15);
+
+    new google.maps.Marker({
+      position: position,
+      map: this.map,
+      title: 'Mi ubicación',
+    });
+  }
+
+  
+  
+
   async registrar() {
-    // Validar campos vacíos
     if (this.usuario.nombre.trim() === '' || this.usuario.apellido.trim() === '' || this.usuario.email.trim() === '' || this.usuario.password.trim() === '' || this.usuario.direccion.trim() === '' || this.usuario.fechaNac.trim() === '') {
       this.presentAlert('Error: Datos vacíos, debe completar todos los campos.');
       return;
     }
- 
-    // Validar contraseña
+
     if (this.usuario.password.length !== 4) {
       this.presentAlert('La contraseña debe ser de exactamente 4 caracteres.');
       return;
     }
 
-    // Validar que la contraseña contenga solo números
     const passwordRegex = /^[0-9]+$/;
     if (!passwordRegex.test(this.usuario.password)) {
       this.presentAlert('La contraseña debe contener solo números.');
       return;
     }
 
-    // Insertar el usuario en la base de datos
     try {
-      await this.kninodbService.insertUsuario(this.usuario); // Insertar el usuario
+      await this.kninodbService.insertUsuario(this.usuario); 
 
-      // Obtener el ID del usuario recién insertado
-      const usuarioId = await this.kninodbService.getUsuarioId(this.usuario.email); // Cambia por email o username, según como se maneje el ID
+      const usuarioId = await this.kninodbService.getUsuarioId(this.usuario.email); 
       this.presentAlert(`Usuario ${this.usuario.nombre} ${this.usuario.apellido} registrado correctamente.`);
 
-      // Si se proporcionó una mascota, insertarla
       if (this.mascota.nombre.trim() !== '' && this.mascota.raza.trim() !== '' && this.mascota.edad.trim() !== '') {
-        await this.kninodbService.insertMascota(this.mascota, usuarioId); // Insertar mascota
+        await this.kninodbService.insertMascota(this.mascota, usuarioId); 
         this.presentAlert(`Mascota ${this.mascota.nombre} registrada correctamente.`);
       }
 
-      // Guardar el estado de registro en localStorage para permitir acceso
-      localStorage.setItem('isRegistered', 'true'); // Aquí guardas el estado de registro
-
+      localStorage.setItem('isRegistered', 'true');
     } catch (error) {
       this.presentAlert('Hubo un error al registrar el usuario o la mascota.');
       console.error(error);
     }
 
-    // Limpiar los campos después de registrar
     this.limpiar();
   }
 
@@ -128,7 +180,6 @@ export class RegistrarPage {
     this.mascota.nombre = '';
     this.mascota.edad = '';
     this.mascota.raza = '';
-
     const userDiv = document.getElementById('user');
     if (userDiv) {
       userDiv.classList.add('animate');
@@ -137,7 +188,18 @@ export class RegistrarPage {
       }, 1000); 
     }
   }
+
+  async presentAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Información de Registro',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 }
+
 
 
 

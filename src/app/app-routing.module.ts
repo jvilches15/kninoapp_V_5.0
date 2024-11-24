@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth.guard';  // Importar el guard
+import { AuthGuard } from './auth.guard';  
 
 const routes: Routes = [
   {
@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
-    canActivate: [AuthGuard]  // Protege esta ruta con el guard
+    canActivate: [AuthGuard]  
   },
   {
     path: 'registrar',
@@ -24,8 +24,14 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
-    canActivate: [AuthGuard]  // Protege esta ruta con el guard
-  }
+    canActivate: [AuthGuard]  
+  },
+  
+  {
+    path: 'tabs/alimento',  
+    loadChildren: () => import('./tabs/alimento/alimento.module').then(m => m.AlimentoPageModule)
+  },
+  
 ];
 
 @NgModule({
@@ -34,7 +40,7 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {} 
+export class AppRoutingModule {}
 
 
 

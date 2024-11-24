@@ -37,10 +37,25 @@
 
         <ion-item>
           <ion-label position="floating" class="input-label">Dirección</ion-label>
-          <ion-input [(ngModel)]="usuario.direccion" required></ion-input>
+          <ion-input id="address-input" type="text" [(ngModel)]="usuario.direccion" (ionInput)="onInputChange($event)" required></ion-input>
         </ion-item>
-
-        <ion-button expand="full" (click)="openGoogleMaps()" class="map-button">Buscar en Google Maps</ion-button>
+        
+        
+        <ion-list *ngIf="suggestions.length > 0">
+          <ion-item *ngFor="let suggestion of suggestions" (click)="selectAddress(suggestion)">
+            {{ suggestion.description }}
+          </ion-item>
+        </ion-list>
+        
+        
+        <ion-item>
+          <ion-label position="floating" class="input-label">Ubicación</ion-label>
+          <ion-input [(ngModel)]="ubicacion" readonly></ion-input>
+        </ion-item>
+        
+        <ion-button expand="full" (click)="obtenerUbicacion()" class="location-button">
+          Obtener Ubicación
+        </ion-button>
 
         <ion-item>
           <ion-label class="date-label">Fecha de Nacimiento</ion-label>
@@ -49,13 +64,16 @@
       </ion-card-content>
     </ion-card>
 
+    
+    <div id="map" style="height: 300px; margin-top: 20px;"></div>
+
     <ion-card class="pet-card">
       <ion-card-header>
         <ion-card-title class="card-title">Registra tu K-Nino</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <div class="image-container">
-          <img *ngIf="mascota.foto" [src]="mascota.foto" alt="Foto K-Nino" class="k-nino-image" />
+          
           <img *ngIf="!mascota.foto" src="assets/img/puppy.png" alt="K-Nino" class="k-nino-image" />
         </div>
 
@@ -83,11 +101,7 @@
           </ion-select>
         </ion-item>
 
-        <!-- Botón para tomar la foto -->
-        <ion-button expand="full" (click)="tomarFoto()" class="camera-button">
-          <ion-icon slot="start" name="camera"></ion-icon>
-          Tomar Foto Knino
-        </ion-button>
+        
 
       </ion-card-content>
     </ion-card>
@@ -103,6 +117,7 @@
     </ion-button>
   </div>
 </ion-content>
+
 
 
 
