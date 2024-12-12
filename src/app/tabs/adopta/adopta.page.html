@@ -11,6 +11,16 @@
       <h2>Un K-Nino te está esperando</h2>
     </div>
   </div>
+  <ion-item>
+    <ion-label position="floating" class="input-label">Ubicación</ion-label>
+    <ion-input [(ngModel)]="ubicacion" readonly></ion-input>
+  </ion-item>
+
+  <ion-button expand="full" (click)="obtenerUbicacion()" class="location-button">
+    Obtener Ubicación KninoWoof
+  </ion-button>
+
+  <div id="map" style="height: 300px; margin-top: 20px;"></div>
 
   <ion-list>
     <ion-item *ngFor="let adopta of adoptame">
@@ -21,14 +31,27 @@
         </ion-card-header>
         <ion-card-content>
           <p>{{ adopta.mensaje }}</p>
-          <ion-button expand="full" color="danger" (click)="adoptar(adopta)">
+          <ion-button 
+            *ngIf="!adopta.adoptado" 
+            expand="full" 
+            color="danger" 
+            (click)="adoptar(adopta)">
             <ion-icon slot="start" name="heart"></ion-icon>
             Adoptar
+          </ion-button>
+          <ion-button 
+            *ngIf="adopta.adoptado" 
+            expand="full" 
+            color="success" 
+            disabled>
+            Knino Adoptado
           </ion-button>
         </ion-card-content>
       </ion-card>
     </ion-item>
   </ion-list>
 </ion-content>
+
+
 
 

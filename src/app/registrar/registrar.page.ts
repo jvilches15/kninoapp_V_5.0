@@ -30,9 +30,8 @@ export class RegistrarPage implements AfterViewInit {
   };
 
   direccionInput: string = ''; 
-  ubicacion: string = '';
   suggestions: any[] = []; 
-  map: any; 
+ 
 
   constructor(
     private navCtrl: NavController, 
@@ -42,17 +41,11 @@ export class RegistrarPage implements AfterViewInit {
   ) {}
 
   ngAfterViewInit() {
-    this.initMap();
+    
     this.initAutocomplete(); 
   }
 
-  initMap() {
-    const mapOptions = {
-      center: { lat: 0, lng: 0 }, 
-      zoom: 2, 
-    };
-    this.map = new google.maps.Map(document.getElementById('map') as HTMLElement, mapOptions);
-  }
+ 
 
   initAutocomplete() {
     const input = document.getElementById('address-input') as HTMLInputElement;
@@ -102,36 +95,6 @@ export class RegistrarPage implements AfterViewInit {
     this.suggestions = []; 
   }
 
- 
-  async obtenerUbicacion() {
-    try {
-      const position = await Geolocation.getCurrentPosition();
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      this.ubicacion = `Lat: ${lat}, Lon: ${lon}`;
-      this.mostrarMapa(lat, lon);
-    } catch (error) {
-      alert('Error al obtener la ubicación');
-      console.error(error);
-    }
-  }
-
-  
-  mostrarMapa(lat: number, lon: number) {
-    const position = { lat, lng: lon };
-
-    this.map.setCenter(position);
-    this.map.setZoom(15);
-
-    new google.maps.Marker({
-      position: position,
-      map: this.map,
-      title: 'Mi ubicación',
-    });
-  }
-
-  
-  
 
   async registrar() {
     if (this.usuario.nombre.trim() === '' || this.usuario.apellido.trim() === '' || this.usuario.email.trim() === '' || this.usuario.password.trim() === '' || this.usuario.direccion.trim() === '' || this.usuario.fechaNac.trim() === '') {
@@ -199,9 +162,3 @@ export class RegistrarPage implements AfterViewInit {
     await alert.present();
   }
 }
-
-
-
-
-
-

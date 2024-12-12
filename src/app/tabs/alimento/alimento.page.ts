@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, ToastController } from '@ionic/angular';
 import { ComidaService } from 'src/app/service/comida.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class AlimentoPage implements OnInit {
   buscadoAlimento: string = '';  
   categorias: any[] = [];  
 
-  constructor(private menu: MenuController, private comidaService: ComidaService) { }
+  constructor(private menu: MenuController, private comidaService: ComidaService, private toastController: ToastController) { }
 
   alimentos = [
     {
@@ -81,8 +81,11 @@ export class AlimentoPage implements OnInit {
   
   agregarAlCarrito() {
     this.toastOpen = true; 
-  }
+    this.toastController.create({
+      message: 'Alimento agregado al carrito.',
+      duration: 2000,
+    }).then(toast => toast.present());
   }
 
-
+}
 

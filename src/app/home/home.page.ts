@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { MenuController } from '@ionic/angular';
 
 @Component({
@@ -14,7 +14,7 @@ export class HomePage implements OnInit {
   password: string = '';
   bienvenidos: string = 'Bienvenid@';
   toastOpen: boolean = false;
-  userFoto: string | null = ''; 
+  userFoto: string | null = '';
 
   premios = [
     {
@@ -57,45 +57,39 @@ export class HomePage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private alertController: AlertController,
-    private toastController: ToastController, 
+    public toastController: ToastController, 
     private menu: MenuController
   ) {}
 
   ngOnInit() {
-    
     this.route.queryParams.subscribe(params => {
       this.email = params['email'];
       this.password = params['password'];
     });
 
-    
-    this.userFoto = localStorage.getItem('mascotaFoto');
+    this.userFoto = localStorage.getItem('userFoto');
     console.log('Foto recuperada desde localStorage:', this.userFoto);
 
-    
     this.menu.close("mainMenu");
   }
 
   async tomarFoto() {
     try {
-      const image = await Camera.getPhoto({
+      const image: Photo = await Camera.getPhoto({
         quality: 90,
-        resultType: CameraResultType.DataUrl,  
-        source: CameraSource.Camera           
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Camera
       });
-  
-      
+
       this.userFoto = image.dataUrl || '';  
       console.log('Foto tomada:', this.userFoto);
-  
-      
-      localStorage.setItem('mascotaFoto', this.userFoto);
+
+      localStorage.setItem('userFoto', this.userFoto);
     } catch (error) {
       console.error('Error al tomar la foto:', error);
       this.userFoto = '';  
     }
   }
-  
   
   async canjearLenguetazos(premioNombre: string) {
     const toast = await this.toastController.create({
@@ -106,7 +100,6 @@ export class HomePage implements OnInit {
     toast.present();
   }
 }
-
 
 
 

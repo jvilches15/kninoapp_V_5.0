@@ -39,23 +39,12 @@
           <ion-label position="floating" class="input-label">Dirección</ion-label>
           <ion-input id="address-input" type="text" [(ngModel)]="usuario.direccion" (ionInput)="onInputChange($event)" required></ion-input>
         </ion-item>
-        
-        
+
         <ion-list *ngIf="suggestions.length > 0">
           <ion-item *ngFor="let suggestion of suggestions" (click)="selectAddress(suggestion)">
             {{ suggestion.description }}
           </ion-item>
         </ion-list>
-        
-        
-        <ion-item>
-          <ion-label position="floating" class="input-label">Ubicación</ion-label>
-          <ion-input [(ngModel)]="ubicacion" readonly></ion-input>
-        </ion-item>
-        
-        <ion-button expand="full" (click)="obtenerUbicacion()" class="location-button">
-          Obtener Ubicación
-        </ion-button>
 
         <ion-item>
           <ion-label class="date-label">Fecha de Nacimiento</ion-label>
@@ -64,44 +53,29 @@
       </ion-card-content>
     </ion-card>
 
-    
-    <div id="map" style="height: 300px; margin-top: 20px;"></div>
-
     <ion-card class="pet-card">
       <ion-card-header>
         <ion-card-title class="card-title">Registra tu K-Nino</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <div class="image-container">
-          
           <img *ngIf="!mascota.foto" src="assets/img/puppy.png" alt="K-Nino" class="k-nino-image" />
         </div>
 
         <ion-item>
           <ion-label position="floating" class="input-label">Nombre del K-Nino</ion-label>
-          <ion-input [(ngModel)]="mascota.nombre" required></ion-input>
+          <ion-input [(ngModel)]="mascota.nombre" name="mascotaNombre" required></ion-input>
         </ion-item>
-
+        
         <ion-item>
           <ion-label position="floating" class="input-label">Raza</ion-label>
-          <ion-select [(ngModel)]="mascota.raza" required>
-            <ion-select-option value="kiltro">Kiltro</ion-select-option>
-            <ion-select-option value="fox-terrier">Fox Terrier</ion-select-option>
-            <ion-select-option value="labrador">Labrador</ion-select-option>
-            <ion-select-option value="sharpei">Sharpei</ion-select-option>
-          </ion-select>
+          <ion-input [(ngModel)]="mascota.raza" name="mascotaRaza" required></ion-input>
         </ion-item>
-
+        
         <ion-item>
           <ion-label position="floating" class="input-label">Edad</ion-label>
-          <ion-select [(ngModel)]="mascota.edad" required>
-            <ion-select-option value="0-6">0 a 6 meses</ion-select-option>
-            <ion-select-option value="1-4">1 a 4 años</ion-select-option>
-            <ion-select-option value="4+">4 años o más</ion-select-option>
-          </ion-select>
+          <ion-input [(ngModel)]="mascota.edad" name="mascotaEdad" required></ion-input>
         </ion-item>
-
-        
 
       </ion-card-content>
     </ion-card>
@@ -117,7 +91,6 @@
     </ion-button>
   </div>
 </ion-content>
-
 
 
 

@@ -21,6 +21,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() { }
 
+ 
   async Alerta(mensaje: string) {
     const alert = await this.alertController.create({
       header: 'Error',
@@ -30,6 +31,7 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
+  
   validarEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
     return emailRegex.test(email);
@@ -37,26 +39,29 @@ export class LoginPage implements OnInit {
 
   
   async login() {
+    
     if (!this.email) {
       this.Alerta('Debe ingresar un correo electrónico.');
       return;
     }
-
+  
     if (!this.validarEmail(this.email)) {
       this.Alerta('Debe ingresar un formato de correo válido.');
       return;
     }
-
+  
     if (!this.password) {
       this.Alerta('Debe ingresar una contraseña.');
       return;
     }
 
-    if (this.password.length > 4 || this.password.length < 4) {
+    this.password = this.password.trim();
+  
+    if (this.password.length !== 4) {
       this.Alerta('La contraseña debe ser de exactamente 4 caracteres.');
       return;
     }
-
+  
     const passwordRegex = /^[0-9]+$/;
     if (!passwordRegex.test(this.password)) {
       this.Alerta('La contraseña debe contener solo números.');
@@ -65,10 +70,12 @@ export class LoginPage implements OnInit {
 
     
     try {
-      const usuarioId = await this.kninodbService.getUsuarioId(this.email); 
+      const usuarioId = await this.kninodbService.getUsuarioId(this.email);
       
-      localStorage.setItem('usuarioId', usuarioId.toString()); 
+      
+      localStorage.setItem('usuarioId', usuarioId.toString());
       localStorage.setItem('isRegistered', 'true');
+  
       
       this.navCtrl.navigateForward(['/home'], {
         queryParams: {
@@ -76,7 +83,6 @@ export class LoginPage implements OnInit {
           password: this.password
         }
       });
-
     } catch (error) {
       
       this.Alerta('Error: Usuario no registrado. Por favor regístrate primero.');
@@ -84,9 +90,8 @@ export class LoginPage implements OnInit {
     }
   }
 
-  
+ 
   registrar() {
     this.navCtrl.navigateForward(['/registrar']);
   }
-
 }

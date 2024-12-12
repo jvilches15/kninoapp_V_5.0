@@ -8,6 +8,9 @@ import { AdoptaPageRoutingModule } from './adopta-routing.module';
 
 import { AdoptaPage } from './adopta.page';
 
+import { FechaRetiroPopoverComponent } from 'src/app/component/fecha-retiro-popover/fecha-retiro-popover.component';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +18,7 @@ import { AdoptaPage } from './adopta.page';
     IonicModule,
     AdoptaPageRoutingModule
   ],
-  declarations: [AdoptaPage]
+  declarations: [AdoptaPage, FechaRetiroPopoverComponent],
+  
 })
 export class AdoptaPageModule {}

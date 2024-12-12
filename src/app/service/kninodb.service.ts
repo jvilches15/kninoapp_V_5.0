@@ -46,8 +46,7 @@ export class KninodbService {
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           nombre TEXT,
           raza TEXT,
-          edad TEXT,
-          foto TEXT,  
+          edad TEXT,  
           usuarioId INTEGER,
           FOREIGN KEY(usuarioId) REFERENCES usuario(id)
         )`, []
@@ -96,13 +95,13 @@ export class KninodbService {
 
   
   async insertMascota(mascota: any, usuarioId: number) {
-    const query = 'INSERT INTO mascota (nombre, raza, edad, foto, usuarioId) VALUES (?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO mascota (nombre, raza, edad, usuarioId) VALUES (?, ?, ?, ?)';
     try {
       await this.dbInstance.executeSql(query, [
         mascota.nombre,
         mascota.raza,
         mascota.edad,
-        mascota.foto, 
+        
         usuarioId
       ]);
       console.log('Mascota insertada con éxito');
@@ -110,20 +109,5 @@ export class KninodbService {
       console.error('Error al insertar la mascota:', error);
     }
   }
-
   
-  async getMascotaFoto(usuarioId: number): Promise<string> {
-    const query = 'SELECT foto FROM mascota WHERE usuarioId = ? LIMIT 1';
-    try {
-      const res = await this.dbInstance.executeSql(query, [usuarioId]);
-      if (res.rows.length > 0) {
-        return res.rows.item(0).foto; 
-      } else {
-        return ''; 
-      }
-    } catch (error) {
-      console.error('Error al recuperar la foto de la mascota:', error);
-      return ''; 
-    }
-  }
 }
