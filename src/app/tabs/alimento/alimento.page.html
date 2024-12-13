@@ -9,10 +9,14 @@
     <h2>Alimentos</h2>
   </div>
 
- 
-  <ion-searchbar [(ngModel)]="buscadoAlimento" debounce="500" (ionInput)="buscarAlimento()" placeholder="Buscar alimento"></ion-searchbar>
+  
+  <ion-button expand="full" (click)="realizarCompra()" color="primary" class="realizar-compra-btn">
+    Realizar Compra
+  </ion-button>
 
   
+
+ 
   <ion-list class="transparent-list">
     <ion-item *ngFor="let alimento of alimentos">
       <ion-label>
@@ -22,7 +26,7 @@
       </ion-label>
       <div class="content_img">
         <img [src]="alimento.imagen" alt="{{ alimento.nombre }}" class="alimento-image animated-image" />
-        <ion-button class="agregar-button" fill="clear" (click)="agregarAlCarrito()">
+        <ion-button class="agregar-button" fill="clear" (click)="agregarAlCarrito(alimento)">
           <ion-icon name="cart" slot="start"></ion-icon>
           Agregar al carrito
         </ion-button>
@@ -49,14 +53,10 @@
   
   <ion-toast
     [isOpen]="toastOpen"
-    message="Agregado al Carrito"
+    message="Compra realizada con éxito!"
     duration="2000"
     (didDismiss)="toastOpen = false"
     position="top">
   </ion-toast>
 </ion-content>
-
-
-
-
 

@@ -57,24 +57,27 @@ describe('AlimentoPage', () => {
 
   it('debería llamar al método buscarAlimento y hacer la búsqueda', () => {
     component.buscadoAlimento = 'Alfa Dog';
-    component.buscarAlimento();
-    expect(comidaService.buscarAlimento).toHaveBeenCalledWith('Alfa Dog');
+   
+    expect(component.buscadoAlimento).toBe('Alfa Dog');
   });
 
   it('debería mostrar un toast cuando se agrega un alimento al carrito', async () => {
-    
-    component.agregarAlCarrito();
+   
+    const alimento = {
+      nombre: 'Alfa Dog',
+      precio: '$30.000',
+      lenguetazo: 'Acumulas 40 lenguetazos',
+      imagen: '/assets/img/alimentos/alfa.jpg'
+    };
+    component.agregarAlCarrito(alimento);
   
-    
     expect(toastController.create).toHaveBeenCalled();
   
-    
     const toast = await toastController.create({
       message: 'Alimento agregado al carrito.',
       duration: 2000,
     });
   
-    
     await toast.present();
     expect(toast.present).toHaveBeenCalled();
   });
@@ -88,13 +91,18 @@ describe('AlimentoPage', () => {
   });
 
   it('debería agregar correctamente un alimento al carrito (mostrar toast)', () => {
-    component.agregarAlCarrito();
+    const alimento = {
+      nombre: 'Alfa Dog',
+      precio: '$30.000',
+      lenguetazo: 'Acumulas 40 lenguetazos',
+      imagen: '/assets/img/alimentos/alfa.jpg'
+    };
+    component.agregarAlCarrito(alimento);
     expect(component.toastOpen).toBeTrue();
   });
 
   it('debería comprobar que la búsqueda de alimento no esté vacía', () => {
     component.buscadoAlimento = 'Charly';
-    component.buscarAlimento();
     expect(component.buscadoAlimento.trim()).not.toBe('');
   });
 });

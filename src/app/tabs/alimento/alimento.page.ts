@@ -11,8 +11,13 @@ export class AlimentoPage implements OnInit {
   toastOpen = false;
   buscadoAlimento: string = '';  
   categorias: any[] = [];  
+  carrito: any[] = [];  
 
-  constructor(private menu: MenuController, private comidaService: ComidaService, private toastController: ToastController) { }
+  constructor(
+    private menu: MenuController,
+    private comidaService: ComidaService,
+    private toastController: ToastController
+  ) { }
 
   alimentos = [
     {
@@ -61,31 +66,51 @@ export class AlimentoPage implements OnInit {
 
   ngOnInit() {
     this.menu.close('mainMenu');
-    
-    
     this.comidaService.getCategorias().subscribe((data: any) => {
       this.categorias = data.categories;
     });
   }
 
   
-  buscarAlimento() {
-    if (this.buscadoAlimento.trim() !== '') {
-      this.comidaService.buscarAlimento(this.buscadoAlimento).subscribe((data: any) => {
-        console.log('Resultados de búsqueda:', data);
-        
-      });
+  agregarAlCarrito(alimento: any) {
+    
+    const productoExistente = this.carrito.find(item => item.nombre === alimento.nombre);
+    if (productoExistente) {
+    
+      productoExistente.cantidad++;
+    } else {
+      
+      this.carrito.push({ ...alimento, cantidad: 1 });
     }
+    this.mostrarToast('Alimento agregado al carrito.');
   }
 
   
-  agregarAlCarrito() {
+  mostrarToast(mensaje: string) {
     this.toastOpen = true; 
     this.toastController.create({
-      message: 'Alimento agregado al carrito.',
+      message: mensaje,
       duration: 2000,
     }).then(toast => toast.present());
   }
 
-}
+  
+  realizarCompra() {
+    if (this.carrito.length === 0) {
+      this.mostrarToast('No hay productos en el carrito.');
+      return;
+    }
+    
+    
+    this.carrito = [];
+    this.mostrarToast('Compra realizada con éxito!');
+  }
 
+ 
+  calcularTotal() {
+    return this.carrito.reduce((total, item) => {
+      const precio = parseFloat(item.precio.replace('$', '').replace('.', '').trim());
+      return total + (precio * item.cantidad);
+    }, 0);
+  }
+}

@@ -4,7 +4,7 @@ import { NavController, AlertController } from '@ionic/angular';
 import { KninodbService } from '../service/kninodb.service';
 import { UrlTree } from '@angular/router';
 
-// Simulación de los servicios
+
 class MockNavController {
   navigateForward(url: string | any[] | UrlTree, options?: any): Promise<boolean> {
     return Promise.resolve(true);

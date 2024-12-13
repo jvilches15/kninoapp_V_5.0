@@ -139,7 +139,8 @@ export class AdoptaPage implements AfterViewInit {
     const alert = await this.alertController.create({
       header: '¡Adopción Confirmada!',
       message: `El perrito/a ${adopta.nombre} ha sido adoptado con éxito. Fecha de retiro: ${adopta.fechaRetiro}.`,
-      buttons: ['OK']
+      buttons: ['OK'],
+      cssClass: 'alert-wrapper'
     });
 
     await alert.present();

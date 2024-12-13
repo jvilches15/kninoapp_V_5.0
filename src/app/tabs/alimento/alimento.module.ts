@@ -8,13 +8,16 @@ import { AlimentoPageRoutingModule } from './alimento-routing.module';
 
 import { AlimentoPage } from './alimento.page';
 
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     AlimentoPageRoutingModule
+    
   ],
+  
   declarations: [AlimentoPage]
 })
 export class AlimentoPageModule {}
